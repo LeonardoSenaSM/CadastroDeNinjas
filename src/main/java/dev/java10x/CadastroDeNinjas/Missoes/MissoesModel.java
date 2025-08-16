@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.util.List;
 
 @Entity
@@ -18,8 +17,13 @@ public class MissoesModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Column(name = "nome")
     private String nome;
+
+    @Column(name = "dificuldae")
     private String dificuldade;
+
     //@Onetomany - Uma missão pode ter varios ninjas
     @OneToMany(mappedBy = "missoes")
     private List<NinjaModel> ninjas;
