@@ -21,12 +21,10 @@ public class MissoesModel {
     @Column(name = "nome")
     private String nome;
 
-    @Column(name = "dificuldae")
+    @Column(name = "dificuldade")
     private String dificuldade;
 
     //@Onetomany - Uma missão pode ter varios ninjas
     @OneToMany(mappedBy = "missoes")
     private List<NinjaModel> ninjas;
-
-
 }
