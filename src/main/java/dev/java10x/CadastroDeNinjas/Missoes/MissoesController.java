@@ -3,22 +3,22 @@ package dev.java10x.CadastroDeNinjas.Missoes;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("missoes")
+@RequestMapping("/missoes")
 public class MissoesController {
 
     //POST -- Manda uma requisição para Criar as missões
-    @PostMapping("/createMissions")
+    @PostMapping("/create")
     public String criaMissoes() {
         return "Missão Criada";
     }
 
     //GET - manda uma requisição para mostra as missoes
-    @GetMapping("/allMissions")
+    @GetMapping("/all")
     public String todasAsMissoes() {
         return "Mostra todas as missões";
     }
 
-    @GetMapping("/allMissionsID")
+    @GetMapping("/allID")
     public String todasMissoesID() {
         return "Mostra todas as missões";
     }
@@ -30,7 +30,7 @@ public class MissoesController {
     }
 
     //DELETE - manda uma requisição para Deletar as missoes
-    @DeleteMapping("/deleteMissionsID")
+    @DeleteMapping("/deleteID")
     public String deletaMissoesID() {
         return "Deleta as missões";
     }
