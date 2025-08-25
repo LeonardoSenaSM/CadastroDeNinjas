@@ -26,8 +26,8 @@ public class NinjaController {
         }
 
     //Procurar ninja por ID(READ
-    @GetMapping("/allID")
-    public List<NinjaModel> mostrarNinjaPorID(Long id) {
+    @GetMapping("/all/{id}")
+    public NinjaModel listarNinjaPorID(@PathVariable Long id) {
         return ninjaService.listarNinjasPorID(id);
         }
 
