@@ -9,13 +9,17 @@ import java.util.Optional;
 public class NinjaService {
 
     private NinjaRepository ninjaRepository;
+    private  NinjaMapper ninjaMapper;
 
-    public NinjaService(NinjaRepository ninjaRepository) {
+    public NinjaService(NinjaRepository ninjaRepository, NinjaMapper ninjaMapper) {
         this.ninjaRepository = ninjaRepository;
+        this.ninjaMapper = ninjaMapper;
     }
 
-    public NinjaModel criarNinjas(NinjaModel ninja){
-        return ninjaRepository.save(ninja);
+    public NinjaDTO criarNinjas(NinjaDTO ninjaDTO){
+        NinjaModel ninja = ninjaMapper.map(ninjaDTO);
+        ninja = ninjaRepository.save(ninja);
+        return ninjaMapper.map(ninja);
     }
 
     public List<NinjaModel> listarNinjas(){
@@ -35,7 +39,11 @@ public class NinjaService {
             }
         }
     public void deletarNinjaPorId(Long id){
-        ninjaRepository.deleteById(id);
+        if(ninjaRepository.existsById(id)) {
+            ninjaRepository.deleteById(id);
+        }else {
+            throw new IllegalArgumentException("Este item não existe!");
+        }
     }
 
 }
