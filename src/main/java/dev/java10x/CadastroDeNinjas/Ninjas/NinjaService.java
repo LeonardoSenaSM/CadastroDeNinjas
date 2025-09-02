@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class NinjaService {
@@ -15,29 +16,35 @@ public class NinjaService {
         this.ninjaRepository = ninjaRepository;
         this.ninjaMapper = ninjaMapper;
     }
-
     public NinjaDTO criarNinjas(NinjaDTO ninjaDTO){
         NinjaModel ninja = ninjaMapper.map(ninjaDTO);
         ninja = ninjaRepository.save(ninja);
         return ninjaMapper.map(ninja);
     }
-
-    public List<NinjaModel> listarNinjas(){
-        return ninjaRepository.findAll();
+    public List<NinjaDTO> listarNinjas(){
+        List<NinjaModel> ninjas = ninjaRepository.findAll();
+        return ninjas.stream()
+                .map(ninjaMapper::map)
+                .collect(Collectors.toList());
     }
-
-    public NinjaModel listarNinjasPorID(Long id){
+    //lista ninjas por id
+    public NinjaDTO listarNinjasPorID(Long id){
         Optional<NinjaModel> ninjaPorID = ninjaRepository.findById(id);
-        return ninjaPorID.orElse(null);
+        return ninjaPorID.map(ninjaMapper::map).orElse(null);
     }
-    public NinjaModel atualizarNinja(Long id, NinjaModel ninjaAtualizado){
-        if (ninjaRepository.existsById(id)) {
-            ninjaAtualizado.setId(id);
-            return ninjaRepository.save(ninjaAtualizado);
-        }else {
-                return null;
+    //altera ninjas na tabela SQL
+    public NinjaDTO atualizarNinja(Long id, NinjaDTO ninjaDTO){
+        Optional<NinjaModel> ninjaExistente = ninjaRepository.findById(id);
+            if (ninjaExistente.isPresent()){
+                NinjaModel ninjaAtualizado = ninjaMapper.map(ninjaDTO);
+                ninjaAtualizado.setId(id);
+                NinjaModel ninjaSalvo = ninjaRepository.save(ninjaAtualizado);
+                return ninjaMapper.map(ninjaSalvo);
             }
+        return null;
         }
+
+    //Deleta ninjas
     public void deletarNinjaPorId(Long id){
         if(ninjaRepository.existsById(id)) {
             ninjaRepository.deleteById(id);
