@@ -106,7 +106,7 @@
 <h1>Alterar Ninja</h1>
 <div class="form-container">
     <div th:if="${mensagem}" class="mensagem" th:text="${mensagem}"></div>
-    <form th:action="@{/ninjas/ui/change}" th:object="${ninja}" method="post">
+    <form th:action="@{/ninjas/ui/change/{id}(id=*{id})}" th:object="${ninja}" method="post">
         <input type="hidden" th:field="*{id}" />
         <label for="nome">Nome:</label>
         <input type="text" id="nome" th:field="*{nome}" required />
