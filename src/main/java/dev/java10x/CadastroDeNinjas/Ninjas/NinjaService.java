@@ -41,7 +41,7 @@ public class NinjaService {
                 NinjaModel ninjaSalvo = ninjaRepository.save(ninjaAtualizado);
                 return ninjaMapper.map(ninjaSalvo);
             }
-        return null;
+        throw new RuntimeException("O ID " + id + " não existe!");
         }
 
     //Deleta ninjas

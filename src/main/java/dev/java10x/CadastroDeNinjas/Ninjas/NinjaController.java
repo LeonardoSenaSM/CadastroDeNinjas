@@ -1,6 +1,5 @@
 package dev.java10x.CadastroDeNinjas.Ninjas;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,36 +32,34 @@ public class NinjaController {
     //Procurar ninja por ID(READ)
     @GetMapping("/all/{id}")
     public ResponseEntity<?> listarNinjaPorID(@PathVariable Long id) {
-        NinjaDTO ninjaLista = ninjaService.listarNinjasPorID(id);
-        if (ninjaService.listarNinjasPorID(id) != null) {
-            return ResponseEntity.ok(ninjaLista);
+        NinjaDTO ninjaListaId = ninjaService.listarNinjasPorID(id);
+        if (ninjaListaId != null) {
+            return ResponseEntity.ok(ninjaListaId);
         }else {
             String erroNinja = "Este ninja não foi encontrado! ID:" + id;
          return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erroNinja);
         }
-        }
+    }
 
     //Alterar dados dos ninjas(UPDATE)
     @PutMapping("/change/{id}")
     public ResponseEntity<?> alterarNinjaPorID(@PathVariable Long id, @RequestBody NinjaDTO ninjaAtualizado) {
-        NinjaDTO ninjaAlterado = ninjaService.atualizarNinja(id, ninjaAtualizado);
-        if (ninjaService.listarNinjasPorID(id) != null) {
+        try {
+            NinjaDTO ninjaAlterado = ninjaService.atualizarNinja(id, ninjaAtualizado);
             return ResponseEntity.ok("Atualizado  " + ninjaAlterado);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("O ID " + ninjaAlterado.getId() + " não existe");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 
     //Deletar Ninjas(DELETE)
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deletarNinjaPorID(@PathVariable Long id) {
-        if (ninjaService.listarNinjasPorID(id) != null){
+        try {
             ninjaService.deletarNinjaPorId(id);
             return ResponseEntity.ok("Id deletado com sucesso: ID(" + id + ")");
-        }else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Esse ID não foi encontrado.");
-            }
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
+}
