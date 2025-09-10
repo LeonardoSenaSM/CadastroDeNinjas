@@ -49,8 +49,7 @@ public class NinjaService {
         if(ninjaRepository.existsById(id)) {
             ninjaRepository.deleteById(id);
         }else {
-            throw new IllegalArgumentException("Este item não existe!");
+            throw new RuntimeException("Este id" + id + " não existe!");
         }
     }
-
 }
