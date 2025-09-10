@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tabela de Missões</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            color: #1e3a8a;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        table {
+            width: 100%;
+            max-width: 1200px;
+            border-collapse: collapse;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: #fff;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        thead th {
+            background-color: #3b82f6;
+            color: white;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        tbody tr:hover {
+            background-color: #e2e8f0;
+            transform: scale(1.01);
+            transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
+        }
+
+        .actions-cell {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 6px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-principal {
+            padding: 12px 20px;
+            background-color: #16a34a;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-info {
+            background-color: #1d4ed8;
+        }
+
+        .btn-info:hover {
+            background-color: #1e40af;
+        }
+
+        .btn-success {
+            background-color: #16a34a;
+        }
+
+        .btn-success:hover {
+            background-color: #15803d;
+        }
+
+        .btn-danger {
+            background-color: #dc2626;
+        }
+
+        .btn-danger:hover {
+            background-color: #b91c1c;
+        }
+
+        @media (max-width: 768px) {
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+
+            thead tr {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+
+            tr {
+                border: 1px solid #ccc;
+                margin-bottom: 10px;
+                border-radius: 8px;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            }
+
+            td {
+                border: none;
+                border-bottom: 1px solid #eee;
+                position: relative;
+                padding-left: 50%;
+                text-align: right;
+            }
+
+            td:before {
+                content: attr(data-label);
+                position: absolute;
+                left: 10px;
+                width: 45%;
+                padding-right: 10px;
+                white-space: nowrap;
+                text-align: left;
+                font-weight: bold;
+            }
+
+            td:nth-of-type(1):before { content: "ID"; }
+            td:nth-of-type(2):before { content: "Nome"; }
+            td:nth-of-type(3):before { content: "Dificuldade"; }
+            td:nth-of-type(4):before { content: "Status"; }
+            td:nth-of-type(5):before { content: "Ações"; }
+        }
+    </style>
+</head>
+<body>
+<h1>Lista de Missões</h1>
+<a th:href="@{/missoes/ui/adicionar}" class="btn btn-principal">Adicionar Nova Missão</a>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Dificuldade</th>
+        <th>Status</th>
+        <th>Ações</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="missao: ${missoes}">
+        <td th:text="${missao.id}"></td>
+        <td th:text="${missao.nome}"></td>
+        <td th:text="${missao.dificuldade}"></td>
+        <td th:text="${missao.status}"></td>
+        <td class="actions-cell">
+            <a th:href="@{/missoes/ui/all/{id}(id=${missao.id})}" class="btn btn-info">Ver detalhes</a>
+            <a th:href="@{/missoes/ui/change/{id}(id=${missao.id})}" class="btn btn-success">Alterar</a>
+            <a th:href="@{/missoes/ui/delete/{id}(id=${missao.id})}" class="btn btn-danger">Deletar</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${missao.nome}">Detalhes da Missão</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .card {
+            width: 350px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        h1 {
+            color: #1e3a8a;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        p {
+            font-size: 1.1em;
+            margin: 10px 0;
+            color: #555;
+        }
+
+        p strong {
+            color: #1a1a1a;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 10px 20px;
+            background-color: #3b82f6;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-link:hover {
+            background-color: #2563eb;
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <h1 th:text="${missao.nome}"></h1>
+    <p><strong>ID:</strong> <span th:text="${missao.id}"></span></p>
+    <p><strong>Dificuldade:</strong> <span th:text="${missao.dificuldade}"></span></p>
+    <p><strong>Status:</strong> <span th:text="${missao.status}"></span></p>
+</div>
+<a th:href="@{/missoes/ui/all}" class="back-link">Voltar para a lista</a>
+</body>
+</html>
