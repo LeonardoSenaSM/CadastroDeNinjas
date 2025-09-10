@@ -20,6 +20,7 @@ public class MissoesModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "nome")
@@ -27,6 +28,9 @@ public class MissoesModel {
 
     @Column(name = "dificuldade")
     private String dificuldade;
+
+    @Column(name = "status")
+    private String status;
 
     //@Onetomany - Uma missão pode ter varios ninjas
     @OneToMany(mappedBy = "missoes")
