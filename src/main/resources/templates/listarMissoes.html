@@ -81,6 +81,13 @@
             margin-bottom: 20px;
         }
 
+        .btn-secundario {
+            padding: 12px 20px;
+            background-color: #1d4ed8;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+
         .btn:hover {
             transform: translateY(-2px);
         }
@@ -157,6 +164,7 @@
 <body>
 <h1>Lista de Missões</h1>
 <a th:href="@{/missoes/ui/adicionar}" class="btn btn-principal">Adicionar Nova Missão</a>
+<a th:href="@{/ninjas/ui/all}" class="btn btn-secundario">Ver Ninjas</a>
 <table>
     <thead>
     <tr>
