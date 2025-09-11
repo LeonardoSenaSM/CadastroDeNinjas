@@ -46,7 +46,7 @@ public class MissoesControllerUI {
     }
     @GetMapping("/adicionar")
     public String mostrarFormularioAdicionarMissao(Model model){
-        model.addAttribute("ninja", new MissoesDTO());
+        model.addAttribute("missao", new MissoesDTO());
         return "adicionarMissoes";
     }
     @PostMapping("/salvar")
