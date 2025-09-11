@@ -123,6 +123,14 @@
         <label for="rank">Rank:</label>
         <input type="text" id="rank" th:field="*{rank}" />
 
+        <label for="missoes">Missão:</label>
+        <select id="missoes" th:field="*{missoes.id}">
+            <option value="">-- Selecione uma Missão --</option>
+            <option th:each="missao : ${missoes}" th:value="${missao.id}" th:text="${missao.nome}"
+                    th:selected="${ninja.missoes != null && missao.id == ninja.missoes.id}">
+            </option>
+        </select>
+
         <button type="submit" class="btn-submit">Salvar Alterações</button>
     </form>
     <a th:href="@{/ninjas/ui/all}" class="back-link">Voltar para a lista de ninjas</a>

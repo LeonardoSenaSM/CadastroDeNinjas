@@ -1,5 +1,7 @@
 package dev.java10x.CadastroDeNinjas.Ninjas;
 
+import dev.java10x.CadastroDeNinjas.Missoes.MissoesDTO;
+import dev.java10x.CadastroDeNinjas.Missoes.MissoesService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,9 +14,11 @@ import java.util.List;
 public class NinjaControllerUI {
 
     private final NinjaService ninjaService;
+    private final MissoesService missoesService;
 
-    public NinjaControllerUI(NinjaService ninjaService) {
+    public NinjaControllerUI(NinjaService ninjaService, MissoesService missoesService) {
         this.ninjaService = ninjaService;
+        this.missoesService = missoesService;
     }
     @GetMapping("/all")
     public String listarNinjas(Model model){
@@ -40,6 +44,8 @@ public class NinjaControllerUI {
         NinjaDTO ninjaEncontrado = ninjaService.listarNinjasPorID(id);
         if (ninjaEncontrado != null) {
             model.addAttribute("ninja", ninjaEncontrado);
+            List<MissoesDTO> missoes = missoesService.listarMissoes();
+            model.addAttribute("missoes", missoes);
             return "alterarNinja";
         } else {
             return "redirect:/ninjas/ui/all";
@@ -61,6 +67,8 @@ public class NinjaControllerUI {
     @GetMapping("/adicionar")
     public String mostrarFormularioAdicionarNinja(Model model){
         model.addAttribute("ninja", new NinjaDTO());
+        List<MissoesDTO> missoes = missoesService.listarMissoes();
+        model.addAttribute("missoes", missoes);
         return "adicionarNinja";
     }
 
