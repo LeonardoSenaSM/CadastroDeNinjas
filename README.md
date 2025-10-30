@@ -1,66 +1,45 @@
-# Cadastro de Ninjas
+# 🥋 Cadastro de Ninjas
 
 ## 📝 Descrição
 
-**Cadastro de Ninjas** é uma aplicação Full-Stack desenvolvida com Spring Boot que permite o gerenciamento completo de ninjas e suas missões. A aplicação oferece tanto uma API RESTful para integrações quanto uma interface de usuário web interativa construída com Thymeleaf.
+**Cadastro de Ninjas** é uma aplicação Full-Stack desenvolvida com **Java 17 e Spring Boot**, focada no gerenciamento completo de ninjas e suas missões. O projeto foi projetado para ser **altamente portátil e consistente**, utilizando a containerização para encapsular a API e o banco de dados.
 
-O sistema permite criar, listar, atualizar e deletar ninjas, bem como gerenciar as missões às quais eles podem ser associados, tudo de forma intuitiva e eficiente.
+A aplicação oferece tanto uma **API RESTful** para integrações quanto uma **Interface de Usuário Web (UI)** interativa construída com Thymeleaf. O sistema permite criar, listar, atualizar e deletar ninjas, bem como gerenciar as missões às quais eles podem ser associados.
 
 ## ✨ Funcionalidades
 
-* **Gerenciamento de Ninjas**: Operações CRUD (Criar, Ler, Atualizar, Deletar) completas para os ninjas.
-* **Gerenciamento de Missões**: Funcionalidades CRUD para as missões, que podem ser atribuídas aos ninjas.
-* **Interface Web (UI)**: Páginas web dinâmicas criadas com Thymeleaf para interagir com o sistema de forma visual e amigável.
-* **API RESTful**: Endpoints bem definidos para todas as funcionalidades, permitindo a integração com outras aplicações.
-* **Documentação de API**: Geração automática da documentação da API com Springdoc (Swagger), facilitando o teste e a compreensão dos endpoints.
-* **Banco de Dados com Migrations**: Utiliza Flyway para um versionamento seguro e automático do esquema do banco de dados.
+* **Containerização Completa:** O ambiente de desenvolvimento é orquestrado via **Docker Compose**, garantindo que a API e o **PostgreSQL** rodem de forma isolada e consistente.
+* **Gerenciamento de Ninjas e Missões:** Operações CRUD (Criar, Ler, Atualizar, Deletar) completas para ambas as entidades.
+* **Versionamento Seguro (Migrations):** Utiliza **Flyway** para um versionamento seguro e automático do esquema do banco de dados.
+* **API RESTful:** Endpoints bem definidos para todas as funcionalidades.
+* **Documentação de API:** Geração automática da documentação com **Springdoc (Swagger UI)**, facilitando o teste e a compreensão dos endpoints.
 
 ## 🛠️ Tecnologias Utilizadas
 
-* **Backend**:
-    * [Java 17](https://www.oracle.com/java/)
-    * [Spring Boot 3.5.4](https://spring.io/projects/spring-boot)
-    * [Spring Web](https://docs.spring.io/spring-framework/reference/web.html)
-    * [Spring Data JPA](https://spring.io/projects/spring-data-jpa)
-* **Frontend (Server-Side)**:
-    * [Thymeleaf](https://www.thymeleaf.org/)
-* **Banco de Dados**:
-    * [H2 Database](https://www.h2database.com/html/main.html) (para ambiente de desenvolvimento)
-    * [Flyway](https://flywaydb.org/)
-* **Build e Dependências**:
-    * [Apache Maven](https://maven.apache.org/)
-    * [Lombok](https://projectlombok.org/)
-* **API Documentation**:
-    * [Springdoc OpenAPI (Swagger UI)](https://springdoc.org/)
+| Categoria | Tecnologia | Detalhe |
+| :--- | :--- | :--- |
+| **Backend** | Java 17 & Spring Boot 3.5.4 | Framework para desenvolvimento da API RESTful. |
+| **Containerização** | **Docker** & **Docker Compose** | Criação de imagens e orquestração do ambiente (API + Banco de Dados). |
+| **Banco de Dados** | **PostgreSQL** | Banco de dados relacional (Substituindo o H2 para produção/teste). |
+| **Migrations** | Flyway | Gerenciamento de schema e versionamento do banco de dados. |
+| **Persistência** | Spring Data JPA & Hibernate 6 | Camada de abstração e mapeamento objeto-relacional (ORM). |
+| **Interface** | Thymeleaf | Motor de templates para renderização das páginas web. |
+| **Utilitários** | Maven & Lombok | Gerenciamento de dependências e redução de código *boilerplate*. |
 
-## 🚀 Como Executar o Projeto
+## 🚀 Como Executar o Projeto (Containerizado)
+
+A maneira recomendada para iniciar o projeto é utilizando o Docker Compose, garantindo que o PostgreSQL e a API rodem corretamente.
 
 ### Pré-requisitos
 
-* JDK 17 ou superior.
-* Apache Maven.
+1.  **Docker Desktop:** Instalação do Docker e Docker Compose.
+2.  **Maven:** Para gerar o arquivo JAR antes do *build* da imagem.
 
-### Configuração
+### 1. Configuração do Arquivo `.env`
 
-1.  **Clone o repositório:**
-    ```bash
-    git clone <URL-DO-SEU-REPOSITORIO>
-    cd CadastroDeNinjas
-    ```
+Crie um arquivo chamado **`.env`** na raiz do projeto (este arquivo é ignorado pelo Git por segurança) e configure as credenciais do seu banco de dados PostgreSQL:
 
-2.  **Configure as variáveis de ambiente (Opcional):**
-    Por padrão, a aplicação usa o banco de dados em memória H2. Se desejar usar um banco de dados externo, você pode criar um arquivo `.env` na raiz do projeto (este arquivo está no `.gitignore` por segurança) com as seguintes variáveis:
-
-    ```env
-    #CONFIG DATABASE
-    DATABASE_URL=jdbc:h2:mem:ninjasdb
-    DATABASE_USERNAME=sa
-    DATABASE_PASSWORD=password
-    ```
-
-### Execução
-
-Utilize o Maven Wrapper para iniciar a aplicação:
-
-```bash
-./mvnw spring-boot:run
+```env
+# Exemplo de conteúdo para o arquivo .env
+DATABASE_USER=postgres
+DATABASE_PASSWORD=minha_senha_secreta
